@@ -136,3 +136,27 @@ La spec y los tickets comparten el mismo `feature-slug`. Por ejemplo:
 ```
 
 Al pasar a tickets, damos la ruta de la spec. Al implementar, damos la ruta de un ticket concreto. Así evitamos que el agente tenga que elegir el trabajo por nosotros.
+
+## Instalación en Claude Code
+
+La opción más simple para tener los comandos disponibles es copiar las carpetas a `~/.claude/skills/`. No necesitamos un plugin. Las skills quedarán disponibles en tus proyectos, solo para tu usuario.
+
+Clona este repositorio si aún no lo tienes:
+
+```bash
+git clone https://github.com/nobuti/mini.git
+cd mini
+```
+
+Desde la raíz de este repositorio:
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R skills/peer-* ~/.claude/skills/
+```
+
+Si ya tienes carpetas con esos nombres en el destino, revísalas antes de copiar: el comando puede sobrescribir sus archivos.
+
+Abre Claude Code en el proyecto donde vayas a trabajar. Si ya estaba abierto, reinicia la sesión. Escribe `/peer-` para comprobar que aparecen las seis skills. Después de definir el problema entre nosotros, empieza con `/peer-plan`.
+
+Para una sesión puntual, también podemos seguir copiando y pegando el contenido de cada `SKILL.md`, sin instalar nada. En ese caso, los comandos no se registran y tendremos que aportar las instrucciones de las skills de apoyo cuando hagan falta.
