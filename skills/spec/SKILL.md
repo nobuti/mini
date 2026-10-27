@@ -1,6 +1,6 @@
 ---
 name: spec
-description: Turn the current conversation into a spec document. Use when the user invokes /spec.
+description: Turn the current conversation into a spec document stored as Markdown under .idea. Use when the user invokes /spec.
 disable-model-invocation: true
 ---
 
@@ -8,7 +8,9 @@ Synthesize the current conversation and existing codebase understanding into a s
 
 Use the problem, scope, constraints, and decisions agreed with the user. Do not invent requirements or silently resolve open questions. Record unresolved questions in Further Notes, and distinguish proposed decisions from confirmed ones.
 
-Write the document using the template below. Use the output path agreed in the conversation, or `SPEC.md` by default. If the file already exists, update it to reflect the agreement without discarding unrelated content. Write in the language used in the conversation.
+Write the document using the template below and save it to `.idea/<feature-slug>/spec.md`. Use a short, descriptive, lowercase hyphen-separated slug. Reuse the feature slug already agreed in the conversation or used by its existing `.idea/<feature-slug>/` directory so the spec and tickets live under the same feature.
+
+If the spec already exists, update it to reflect the agreement without discarding unrelated content. Do not replace another feature's spec. Write in the language used in the conversation.
 
 Keep the spec concise and concrete. Describe observable behavior and contracts precisely enough to guide tickets and tests. Do not create tickets, publish issues, or implement the solution.
 
