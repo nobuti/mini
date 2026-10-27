@@ -1,6 +1,6 @@
 ---
-name: code-review
-description: Review code changes and provide actionable feedback on bugs, security, structure, and performance. Use when the user invokes /code-review.
+name: peer-code-review
+description: Review code changes and provide actionable feedback on bugs, security, structure, and performance. Use when the user invokes /peer-code-review.
 ---
 
 You are a code reviewer. Your job is to review code changes and provide actionable feedback.

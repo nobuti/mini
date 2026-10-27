@@ -1,6 +1,6 @@
 ---
-name: tickets
-description: Break a spec, plan, or conversation into small, verifiable tickets stored as Markdown files under .idea. Use when the user invokes /tickets.
+name: peer-tickets
+description: Break a spec, plan, or conversation into small, verifiable tickets stored as Markdown files under .idea. Use when the user invokes /peer-tickets.
 disable-model-invocation: true
 ---
 

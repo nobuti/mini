@@ -1,6 +1,6 @@
 ---
-name: plan
-description: Grill the user relentlessly about a plan, decision, or idea. Use when the user invokes /plan.
+name: peer-plan
+description: Grill the user relentlessly about a plan, decision, or idea. Use when the user invokes /peer-plan.
 ---
 
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.

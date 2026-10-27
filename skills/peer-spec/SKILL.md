@@ -1,6 +1,6 @@
 ---
-name: spec
-description: Turn the current conversation into a spec document stored as Markdown under .idea. Use when the user invokes /spec.
+name: peer-spec
+description: Turn the current conversation into a spec document stored as Markdown under .idea. Use when the user invokes /peer-spec.
 disable-model-invocation: true
 ---
 
