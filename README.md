@@ -2,7 +2,7 @@
 
 En esta sesión vamos a trabajar juntos sobre una tarea real, desde la definición del problema hasta un primer incremento probado. La idea es practicar un proceso que podamos repetir después, con pasos pequeños y tiempo para revisar lo que propone el agente.
 
-No buscamos aprender cuatro skills, sino practicar cómo dirigir el trabajo con IA.
+No buscamos memorizar las skills, sino practicar cómo dirigir el trabajo con IA.
 
 ## Antes de abrir el agente
 
@@ -22,7 +22,9 @@ Podemos equivocarnos. El agente puede encontrar algo que nos haga revisar esos l
 
 ## El proceso
 
-### 0. Frame the problem - HUMAN LEAD
+Antes de pasar al siguiente paso, revisamos el resultado. Si aparece algo que cambia el alcance o contradice una hipótesis, volvemos al paso que corresponda.
+
+### 0. Frame the problem - Human driven
 
 Con las cinco preguntas, acordamos el problema, el alcance, las restricciones y los criterios de éxito. Este paso lo hacemos sin agente.
 
@@ -30,7 +32,7 @@ Antes de seguir, deberíamos poder explicar qué queremos resolver y qué hemos 
 
 ### 1. Plan
 
-Usamos `plan` para investigar el código y poner a prueba las hipótesis iniciales. Le pedimos al agente que busque evidencia y cuestione nuestras decisiones, también las que parecen obvias.
+Usamos `/plan` para investigar el código y poner a prueba las hipótesis iniciales. Le pedimos al agente que busque evidencia y cuestione nuestras decisiones, también las que parecen obvias.
 
 Mi peer revisa las propuestas y decide cuáles acepta, cuáles rechaza y qué necesita comprobar mejor. Si cambia un límite, dejamos anotado qué hemos aprendido para cambiarlo.
 
@@ -50,13 +52,13 @@ Elegimos un primer incremento que podamos implementar y revisar durante la sesi�
 
 ### 4. Implement
 
-Construimos ese incremento con TDD:
+Pasamos a `/implement` la ruta del ticket elegido. Esta skill se apoya en `/tdd` para construir un comportamiento cada vez:
 
 1. Escribimos un test para el comportamiento esperado y comprobamos que falla por el motivo correcto.
 2. Implementamos lo mínimo para que pase.
-3. Refactorizamos y comprobamos que los tests siguen pasando.
+3. Repetimos con el siguiente comportamiento del ticket, comprobando los tests durante el trabajo y la suite completa al terminar.
 
-Revisamos el código y las decisiones del agente frente a la especificación. Que los tests pasen es parte de la comprobación; también tenemos que entender el cambio y confirmar que respeta los límites acordados.
+Después usamos `/code-review` para revisar el código y las decisiones del agente frente a la especificación. Dejamos la refactorización para esta fase de revisión y comprobamos que los tests siguen pasando. Que los tests pasen es parte de la comprobación; también tenemos que entender el cambio y confirmar que respeta los límites acordados.
 
 ## Cómo repartimos los 60 minutos
 
@@ -64,7 +66,7 @@ Revisamos el código y las decisiones del agente frente a la especificación. Qu
 | --- | --- | --- |
 | 0-5 min | El principio | Explicamos qué vamos a practicar y qué decisiones queremos mantener en nuestras manos. |
 | 5-15 min | Frame the problem | Mi peer explica la tarea y responde a las cinco preguntas. Acordamos alcance y criterios de éxito, sin agente. |
-| 15-30 min | Research + grilling | Usamos `plan` para investigar y cuestionar las hipótesis. Él valida o rechaza las propuestas con la evidencia delante. |
+| 15-30 min | Research + grilling | Usamos `/plan` para investigar y cuestionar las hipótesis. Él valida o rechaza las propuestas con la evidencia delante. |
 | 30-40 min | Spec + tickets | Definimos comportamientos verificables y dividimos el trabajo en incrementos pequeños. |
 | 40-55 min | Implementación | Implementamos el primer incremento con TDD y revisamos las decisiones y el resultado del agente. |
 | 55-60 min | Reflexión | Hablamos sobre qué ha decidido él, qué ha delegado y qué haría diferente. |
@@ -80,3 +82,55 @@ Quiero cerrar con tres preguntas:
 - ¿Qué harías diferente la próxima vez?
 
 Con esas respuestas podremos ver qué partes del proceso le han ayudado y cuáles conviene ajustar para la siguiente sesión.
+
+## Referencia de skills
+
+Para la sesión, podemos copiar el contenido del `SKILL.md` que necesitemos y pegarlo en el agente. No hace falta configurar un plugin. Los nombres con `/` identifican cada skill; usarlos como comandos requiere que estén instaladas en el agente.
+
+### Workflow
+
+```text
+0. Frame the problem   Human driven, sin skill ni agente
+          |
+          v
+1. Plan               /plan
+          |
+          v
+2. Spec               /spec
+          |
+          v
+3. Tickets            /tickets
+          |
+          v
+4. Implement          /implement, un ticket cada vez
+                      |
+                      +-- /tdd: test que falla -> codigo minimo
+                      |
+                      +-- /code-review: revisar el cambio
+```
+
+### Qué hace cada skill
+
+| Skill | Cuándo usarla | Qué hace |
+| --- | --- | --- |
+| [`/plan`](skills/plan/SKILL.md) | Después de definir el problema entre nosotros. | Investiga el código y cuestiona las hipótesis por rondas. Las decisiones las tomamos nosotros. Termina cuando confirmamos que compartimos el mismo enfoque. |
+| [`/spec`](skills/spec/SKILL.md) | Cuando el enfoque está acordado. | Sintetiza la conversación sin abrir otra entrevista. Guarda comportamientos, contratos, decisiones y dudas en `.idea/<feature-slug>/spec.md`. |
+| [`/tickets`](skills/tickets/SKILL.md) | Con una spec lista para descomponer. | Propone incrementos pequeños con criterios de aceptación y dependencias. Tras nuestra aprobación, escribe un Markdown por ticket en `.idea/<feature-slug>/tickets/`. |
+| [`/implement`](skills/implement/SKILL.md) | Cuando elegimos un ticket para construir. | Lee el ticket local, usa `tdd`, ejecuta comprobaciones, pide una revisión con `code-review` y hace commit en la rama actual. Si el ticket no está claro, pregunta antes de empezar. |
+| [`/tdd`](skills/tdd/SKILL.md) | Durante la implementación. | Trabaja un comportamiento cada vez: test que falla y código mínimo para hacerlo pasar. Acuerda con nosotros las interfaces que se van a probar y sigue las convenciones de testing del proyecto. |
+| [`/code-review`](skills/code-review/SKILL.md) | Al revisar el incremento. | Busca bugs, fallos de seguridad y problemas concretos de estructura o rendimiento. Puede revisar cambios sin commit, un commit, una comparación con otra rama o una MR de GitLab. |
+
+### Archivos de trabajo
+
+La spec y los tickets comparten el mismo `feature-slug`. Por ejemplo:
+
+```text
+.idea/
+  cart-checkout/
+    spec.md
+    tickets/
+      01-confirm-checkout.md
+      02-handle-payment-failure.md
+```
+
+Al pasar a tickets, damos la ruta de la spec. Al implementar, damos la ruta de un ticket concreto. Así evitamos que el agente tenga que elegir el trabajo por nosotros.
